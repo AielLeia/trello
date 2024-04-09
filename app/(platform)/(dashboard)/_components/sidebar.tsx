@@ -8,6 +8,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { route } from '@/lib/route';
 
 import NavItem, {
+  NavItemSkeleton,
   Organization,
 } from '@/app/(platform)/(dashboard)/_components/nav-item';
 import { Accordion } from '@/components/ui/accordion';
@@ -48,7 +49,15 @@ const Sidebar = ({ storageKey = 't-sidebar-state' }: SidebarProps) => {
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
       <>
-        <Skeleton />
+        <div className="flex items-center justify-between mb-2">
+          <Skeleton className="h-10 w-[50%]" />
+          <Skeleton className="h-10 w-10" />
+        </div>
+        <div className="space-y-2">
+          <NavItemSkeleton />
+          <NavItemSkeleton />
+          <NavItemSkeleton />
+        </div>
       </>
     );
   }
