@@ -9,6 +9,17 @@ export interface ApplicationRoutes {
   '/organization/[organizationId]': {
     params: { organizationId: string };
   };
+  '/organization/[organizationId]/activity': {
+    params: { organizationId: string };
+  };
+  '/organization/[organizationId]/settings': {
+    params: { organizationId: string };
+  };
+  '/organization/[organizationId]/billing': {
+    params: { organizationId: string };
+  };
+
+  '/select-org': Empty;
 }
 
 export type ApplicationPath = keyof ApplicationRoutes;

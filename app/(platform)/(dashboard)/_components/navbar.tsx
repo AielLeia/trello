@@ -1,13 +1,14 @@
 import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 import { Plus } from 'lucide-react';
 
+import MobileSidebar from '@/app/(platform)/(dashboard)/_components/mobile-sidebar';
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   return (
     <nav className="fixed z-50 top-0 w-full h-14 border-b shadow-sm bg-white flex items-center px-4">
-      {/* TODO: Mobile sidebar */}
+      <MobileSidebar />
       <div className="flex items-center gap-x-4">
         <div className="hidden md:flex">
           <Logo />
@@ -26,7 +27,7 @@ const Navbar = () => {
       <div className="ml-auto flex items-center gap-x-2">
         <OrganizationSwitcher
           hidePersonal
-          afterCreateOrganizationUrl="/oganization/:id"
+          afterCreateOrganizationUrl="/organization/:id"
           afterLeaveOrganizationUrl="/select-org"
           afterSelectOrganizationUrl="/organization/:id"
           appearance={{

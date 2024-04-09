@@ -9,9 +9,14 @@
     "lint": "next lint",
     "format": "prettier --write ."
   },
-  "pre-commit": ["format"],
+  "pre-commit": [
+    "format"
+  ],
   "dependencies": {
     "@clerk/nextjs": "^4.29.12",
+    "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -21,7 +26,9 @@
     "react-dom": "^18",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.22.4"
+    "usehooks-ts": "^3.1.0",
+    "zod": "^3.22.4",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
