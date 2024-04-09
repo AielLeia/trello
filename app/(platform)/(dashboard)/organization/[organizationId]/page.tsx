@@ -4,6 +4,9 @@ import createBoard from '@/actions/create-board';
 
 import { useAction } from '@/hooks/use-action';
 
+import FormInput from '@/components/form/form-input';
+import FormSubmit from '@/components/form/form-submit';
+
 const OrganizationIdPage = () => {
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => console.log(data),
@@ -18,15 +21,13 @@ const OrganizationIdPage = () => {
 
   return (
     <form action={onSubmit}>
-      <input
+      <FormInput
+        errors={fieldErrors}
         id="title"
         type="text"
-        name="title"
-        required
-        placeholder="Enter the board title"
-        className="p-3 border border-gray-300 rounded-lg"
+        label="Board title"
       />
-      {fieldErrors && JSON.stringify(fieldErrors)}
+      <FormSubmit>Save</FormSubmit>
     </form>
   );
 };
