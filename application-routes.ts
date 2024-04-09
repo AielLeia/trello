@@ -19,6 +19,10 @@ export interface ApplicationRoutes {
     params: { organizationId: string };
   };
 
+  '/board/[boardId]': {
+    params: { boardId: string };
+  };
+
   '/select-org': Empty;
 }
 
