@@ -7,11 +7,8 @@ const EnvSchema = z.object({
   NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string().readonly(),
   NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string().readonly(),
   NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string().readonly(),
+  DATABASE_URL: z.string().readonly(),
+  SHADOW_DATABASE_URL: z.string().readonly(),
 });
 
-const EnvConfigResult = EnvSchema.safeParse(process.env);
-if (!EnvConfigResult.success) {
-  throw new Error(EnvConfigResult.error.toString());
-}
-
-export const EnvConfig = EnvConfigResult.data;
+export const EnvConfig = EnvSchema.parse(process.env);

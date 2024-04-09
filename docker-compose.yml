@@ -5,8 +5,6 @@ services:
     container_name: mysql_container
     image: mysql:8.3.0
     environment:
-      MYSQL_USER: 'trello'
-      MYSQL_PASSWORD: 'trello'
       MYSQL_ROOT_PASSWORD: 'password'
       TZ: 'Europe/Paris'
     command:
