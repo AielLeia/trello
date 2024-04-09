@@ -4,9 +4,6 @@ export interface ApplicationRoutes {
   '/sign-up': Empty;
   '/sign-in': Empty;
   '/': Empty;
-  '/salut': {
-    params: { id: number };
-  };
 }
 
 export type ApplicationPath = keyof ApplicationRoutes;
