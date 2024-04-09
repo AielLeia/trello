@@ -1,9 +1,14 @@
 export type Empty = Record<PropertyKey, never>;
 
 export interface ApplicationRoutes {
+  '/': Empty;
+
   '/sign-up': Empty;
   '/sign-in': Empty;
-  '/': Empty;
+
+  '/organization/[organizationId]': {
+    params: { organizationId: string };
+  };
 }
 
 export type ApplicationPath = keyof ApplicationRoutes;
