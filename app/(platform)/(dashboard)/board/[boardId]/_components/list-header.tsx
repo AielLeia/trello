@@ -7,6 +7,7 @@ import updateList from '@/actions/update-list';
 
 import { useAction } from '@/hooks/use-action';
 
+import ListOptions from '@/app/(platform)/(dashboard)/board/[boardId]/_components/list-options';
 import FormInput from '@/components/form/form-input';
 
 type ListHeaderProps = {
@@ -94,6 +95,7 @@ const ListHeader = ({ data }: ListHeaderProps) => {
           {data.title}
         </div>
       )}
+      <ListOptions data={data} onAddCard={() => {}} />
     </div>
   );
 };
