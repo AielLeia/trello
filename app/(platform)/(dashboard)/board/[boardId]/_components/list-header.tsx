@@ -12,9 +12,10 @@ import FormInput from '@/components/form/form-input';
 
 type ListHeaderProps = {
   data: List;
+  onAddCard: () => void;
 };
 
-const ListHeader = ({ data }: ListHeaderProps) => {
+const ListHeader = ({ data, onAddCard }: ListHeaderProps) => {
   const formRef = useRef<ElementRef<'form'>>(null);
   const inputRef = useRef<ElementRef<'input'>>(null);
 
@@ -95,7 +96,7 @@ const ListHeader = ({ data }: ListHeaderProps) => {
           {data.title}
         </div>
       )}
-      <ListOptions data={data} onAddCard={() => {}} />
+      <ListOptions data={data} onAddCard={onAddCard} />
     </div>
   );
 };
