@@ -1,4 +1,8 @@
-import BoardList from '@/app/(platform)/(dashboard)/organization/[organizationId]/_components/board-list';
+import { Suspense } from 'react';
+
+import BoardList, {
+  BoardListSkeleton,
+} from '@/app/(platform)/(dashboard)/organization/[organizationId]/_components/board-list';
 import Info from '@/app/(platform)/(dashboard)/organization/[organizationId]/_components/info';
 import { Separator } from '@/components/ui/separator';
 
@@ -8,7 +12,9 @@ const OrganizationIdPage = () => {
       <Info />
       <Separator className="my-4" />
       <div className="px-2 md:px-4">
-        <BoardList />
+        <Suspense fallback={<BoardListSkeleton />}>
+          <BoardList />
+        </Suspense>
       </div>
     </div>
   );
