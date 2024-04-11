@@ -42,11 +42,13 @@ export const useAction = <TInput, TOutput>(
 
         if (result.type === ReturnTypeEnum.GENERALE_ERROR) {
           setError(result.error);
+          setFieldErrors(undefined);
           options.onError?.(result.error);
         }
 
         if (result.type === ReturnTypeEnum.RESULT && result.data) {
           setData(result.data);
+          setFieldErrors(undefined);
           options.onSuccess?.(result.data);
         }
       } finally {

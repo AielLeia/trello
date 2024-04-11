@@ -1,34 +1,16 @@
-'use client';
-
-import createBoard from '@/actions/create-board';
-
-import { useAction } from '@/hooks/use-action';
-
-import FormInput from '@/components/form/form-input';
-import FormSubmit from '@/components/form/form-submit';
+import BoardList from '@/app/(platform)/(dashboard)/organization/[organizationId]/_components/board-list';
+import Info from '@/app/(platform)/(dashboard)/organization/[organizationId]/_components/info';
+import { Separator } from '@/components/ui/separator';
 
 const OrganizationIdPage = () => {
-  const { execute, fieldErrors } = useAction(createBoard, {
-    onSuccess: (data) => console.log(data),
-    onError: (error) => console.log(error),
-  });
-
-  const onSubmit = (formData: FormData) => {
-    const title = formData.get('title') as string;
-
-    execute({ title });
-  };
-
   return (
-    <form action={onSubmit}>
-      <FormInput
-        errors={fieldErrors}
-        id="title"
-        type="text"
-        label="Board title"
-      />
-      <FormSubmit>Save</FormSubmit>
-    </form>
+    <div className="w-full mb-20">
+      <Info />
+      <Separator className="my-4" />
+      <div className="px-2 md:px-4">
+        <BoardList />
+      </div>
+    </div>
   );
 };
 
