@@ -11,20 +11,42 @@ import db from '@/lib/db';
 import { route } from '@/lib/route';
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { userId } = auth();
-  if (!userId) {
+  const { userId, orgId } = auth();
+  if (!userId || !orgId) {
     return {
       type: ReturnTypeEnum.GENERALE_ERROR,
       error: 'Unauthorized',
     };
   }
 
-  const { title } = data;
-  let board;
+  const { title, image } = data;
+  const [imageId, imageThumbUrl, imageFullUrl, imageUsername, imageLinkHTML] =
+    image.split('|');
+  if (
+    !imageId ||
+    !imageThumbUrl ||
+    !imageFullUrl ||
+    !imageUsername ||
+    !imageLinkHTML
+  ) {
+    return {
+      type: ReturnTypeEnum.GENERALE_ERROR,
+      error: 'Missing fields. Failed to create board.',
+    };
+  }
 
+  let board;
   try {
     board = await db.board.create({
-      data: { title },
+      data: {
+        title,
+        orgId,
+        imageId,
+        imageThumbUrl,
+        imageFullUrl,
+        imageUsername,
+        imageLinkHTML,
+      },
     });
   } catch (err) {
     return {

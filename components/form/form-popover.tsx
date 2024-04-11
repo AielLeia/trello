@@ -1,14 +1,18 @@
 'use client';
 
 import { X } from 'lucide-react';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { ElementRef, useRef } from 'react';
 import { toast } from 'sonner';
 
 import createBoard from '@/actions/create-board';
 
+import { route } from '@/lib/route';
+
 import { useAction } from '@/hooks/use-action';
 
 import FormInput from '@/components/form/form-input';
+import FormPicker from '@/components/form/form-picker';
 import FormSubmit from '@/components/form/form-submit';
 import { Button } from '@/components/ui/button';
 import {
@@ -31,14 +35,23 @@ const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
+  const router = useRouter();
+  const closeRef = useRef<ElementRef<'button'>>(null);
+
   const { execute, fieldErrors } = useAction(createBoard, {
-    onSuccess: () => toast.success('Board created successfully.'),
+    onSuccess: (data) => {
+      toast.success('Board created successfully.');
+      closeRef.current?.click();
+      router.push(route('/board/[boardId]', { params: { boardId: data.id } }));
+    },
     onError: (error) => toast.error(error),
   });
 
   const onSubmit = async (formData: FormData) => {
     const title = formData.get('title') as string;
-    await execute({ title });
+    const image = formData.get('image') as string;
+
+    await execute({ title, image });
   };
 
   return (
@@ -53,7 +66,7 @@ const FormPopover = ({
         <div className="text-sm font-medium text-center text-neutral-600 pb-4">
           Create board
         </div>
-        <PopoverClose asChild>
+        <PopoverClose ref={closeRef} asChild>
           <Button
             className="h-auto w-auto p-2 absolute top-1 right-2 text-neutral-600"
             variant="ghost"
@@ -63,6 +76,7 @@ const FormPopover = ({
         </PopoverClose>
         <form action={onSubmit} className="space-y-4">
           <div className="space-y-4">
+            <FormPicker id={'image'} errors={fieldErrors} />
             <FormInput
               id={'title'}
               label={'Board title'}
