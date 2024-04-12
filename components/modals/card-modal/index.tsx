@@ -8,6 +8,12 @@ import { route } from '@/lib/route';
 
 import { useCardModal } from '@/hooks/use-card-modal';
 
+import Actions, {
+  ActionsSkeleton,
+} from '@/components/modals/card-modal/actions';
+import Description, {
+  DescriptionSkeleton,
+} from '@/components/modals/card-modal/description';
 import Header, { HeaderSkeleton } from '@/components/modals/card-modal/header';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 
@@ -24,6 +30,18 @@ const CardModal = () => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         {!cardData ? <HeaderSkeleton /> : <Header data={cardData} />}
+        <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
+          <div className="col-span-3">
+            <div className="w-full space-y-6">
+              {!cardData ? (
+                <DescriptionSkeleton />
+              ) : (
+                <Description data={cardData} />
+              )}
+            </div>
+          </div>
+          {!cardData ? <ActionsSkeleton /> : <Actions data={cardData} />}
+        </div>
       </DialogContent>
     </Dialog>
   );
