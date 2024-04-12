@@ -1,11 +1,13 @@
 'use server';
 
 import { auth } from '@clerk/nextjs';
+import { Action, EntityType } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 import { UpdateBoard } from '@/actions/update-board/schema';
 import { InputType, ReturnType } from '@/actions/update-board/types';
 
+import { createAuditLog } from '@/lib/create-audit-log';
 import { createSafeAction, ReturnTypeEnum } from '@/lib/create-safe-action';
 import db from '@/lib/db';
 import { route } from '@/lib/route';
@@ -26,6 +28,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     board = await db.board.update({
       where: { id, orgId },
       data: { title },
+    });
+    await createAuditLog({
+      entityId: board.id,
+      entityTitle: board.title,
+      entityType: EntityType.Board,
+      action: Action.Update,
     });
   } catch (err) {
     return {

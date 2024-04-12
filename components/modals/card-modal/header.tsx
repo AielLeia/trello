@@ -30,8 +30,9 @@ const Header = ({ data }: HeaderProps) => {
   };
 
   const { execute, fieldErrors } = useAction(updateCard, {
-    onSuccess: (dataSuccess) => {
-      queryClient.invalidateQueries({ queryKey: ['card', data.id] });
+    onSuccess: async (dataSuccess) => {
+      await queryClient.invalidateQueries({ queryKey: ['card', data.id] });
+      await queryClient.invalidateQueries({ queryKey: ['card-logs', data.id] });
       toast.success(`Cards "${dataSuccess.title}" updated successfully.`);
       setTitle(data.title);
     },

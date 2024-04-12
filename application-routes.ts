@@ -26,6 +26,9 @@ export interface ApplicationRoutes {
   '/api/cards/[cardId]': {
     params: { cardId: string };
   };
+  '/api/cards/[cardId]/audit-logs': {
+    params: { cardId: string };
+  };
 
   '/select-org': Empty;
 }

@@ -1,11 +1,13 @@
 'use server';
 
 import { auth } from '@clerk/nextjs';
+import { Action, EntityType } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 import { DeleteList } from '@/actions/delete-list/schema';
 import { InputType, ReturnType } from '@/actions/delete-list/types';
 
+import { createAuditLog } from '@/lib/create-audit-log';
 import { createSafeAction, ReturnTypeEnum } from '@/lib/create-safe-action';
 import db from '@/lib/db';
 import { route } from '@/lib/route';
@@ -25,6 +27,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   try {
     list = await db.list.delete({
       where: { id, boardId, board: { orgId } },
+    });
+    await createAuditLog({
+      entityId: list.id,
+      entityTitle: list.title,
+      entityType: EntityType.List,
+      action: Action.Delete,
     });
   } catch (err) {
     return {
