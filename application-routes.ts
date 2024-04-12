@@ -23,6 +23,10 @@ export interface ApplicationRoutes {
     params: { boardId: string };
   };
 
+  '/api/cards/[cardId]': {
+    params: { cardId: string };
+  };
+
   '/select-org': Empty;
 }
 
