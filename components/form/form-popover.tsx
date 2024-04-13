@@ -10,6 +10,7 @@ import createBoard from '@/actions/create-board';
 import { route } from '@/lib/route';
 
 import { useAction } from '@/hooks/use-action';
+import { useProModal } from '@/hooks/use-pro-modal';
 
 import FormInput from '@/components/form/form-input';
 import FormPicker from '@/components/form/form-picker';
@@ -35,6 +36,8 @@ const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
+  const proModal = useProModal((state) => state);
+
   const router = useRouter();
   const closeRef = useRef<ElementRef<'button'>>(null);
 
@@ -44,7 +47,15 @@ const FormPopover = ({
       closeRef.current?.click();
       router.push(route('/board/[boardId]', { params: { boardId: data.id } }));
     },
-    onError: (error) => toast.error(error),
+    onError: (error) => {
+      toast.error(error);
+      if (
+        error ===
+        'You have reached your limit of free boards. Please upgrade to create more.'
+      ) {
+        proModal.onOpen();
+      }
+    },
   });
 
   const onSubmit = async (formData: FormData) => {

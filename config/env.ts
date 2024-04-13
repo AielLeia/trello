@@ -7,6 +7,8 @@ export const EnvConfig = createEnv({
     DATABASE_URL: z.string().url().readonly(),
     SHADOW_DATABASE_URL: z.string().url().readonly(),
     UNSPLASH_SECRET_KEY: z.string().readonly(),
+    STRIPE_API_KEY: z.string().readonly(),
+    STRIPE_WEBHOOK_SECRET: z.string().readonly(),
   },
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().readonly(),
@@ -15,6 +17,7 @@ export const EnvConfig = createEnv({
     NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string().readonly(),
     NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string().readonly(),
     NEXT_PUBLIC_UNSPLASH_API_KEY: z.string().readonly(),
+    NEXT_PUBLIC_APP_URL: z.string().readonly(),
   },
   runtimeEnv: {
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
@@ -22,6 +25,8 @@ export const EnvConfig = createEnv({
     SHADOW_DATABASE_URL: process.env.SHADOW_DATABASE_URL,
     NEXT_PUBLIC_UNSPLASH_API_KEY: process.env.NEXT_PUBLIC_UNSPLASH_API_KEY,
     UNSPLASH_SECRET_KEY: process.env.UNSPLASH_SECRET_KEY,
+    STRIPE_API_KEY: process.env.STRIPE_API_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
     NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
@@ -30,5 +35,6 @@ export const EnvConfig = createEnv({
       process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL,
     NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL:
       process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   },
 });

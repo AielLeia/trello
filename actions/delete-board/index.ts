@@ -11,6 +11,7 @@ import { InputType, ReturnType } from '@/actions/delete-board/types';
 import { createAuditLog } from '@/lib/create-audit-log';
 import { createSafeAction, ReturnTypeEnum } from '@/lib/create-safe-action';
 import db from '@/lib/db';
+import { decrementAvailableCount } from '@/lib/org-limit';
 import { route } from '@/lib/route';
 
 const handler = async (data: InputType): Promise<ReturnType> => {
@@ -28,6 +29,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     const board = await db.board.delete({
       where: { id, orgId },
     });
+    await decrementAvailableCount();
     await createAuditLog({
       entityId: board.id,
       entityTitle: board.title,

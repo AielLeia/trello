@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { route } from '@/lib/route';
 
 export default authMiddleware({
-  publicRoutes: ['/'],
+  publicRoutes: ['/', '/api/webhook'],
   afterAuth(auth, req) {
     if (auth.userId && auth.isPublicRoute) {
       let path = '/select-org';

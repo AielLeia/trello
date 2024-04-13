@@ -3,6 +3,7 @@
 import { useIsClient } from 'usehooks-ts';
 
 import CardModal from '@/components/modals/card-modal';
+import ProModal from '@/components/modals/pro-modal';
 
 const ModalProvider = () => {
   const isClient = useIsClient();
@@ -11,6 +12,7 @@ const ModalProvider = () => {
 
   return (
     <>
+      <ProModal />
       <CardModal />
     </>
   );
