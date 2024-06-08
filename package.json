@@ -9,7 +9,8 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "docker:up": "docker-compose up --build",
-    "docker:down": "docker-compose down"
+    "docker:down": "docker-compose down",
+    "postinstall": "prisma generate"
   },
   "pre-commit": [
     "format"
