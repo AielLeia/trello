@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 import localFont from 'next/font/local';
 import Link from 'next/link';
 
+import db from '@/lib/db';
 import { route } from '@/lib/route';
 import { cn } from '@/lib/utils';
 
@@ -18,6 +19,8 @@ const textFont = Poppins({
 });
 
 const MarketingPage = () => {
+  const cards = db.card.findMany();
+  console.log({ cards });
   return (
     <div className={'flex items-center justify-center flex-col'}>
       <div

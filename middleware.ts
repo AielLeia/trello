@@ -1,7 +1,6 @@
 import { authMiddleware, redirectToSignIn } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
-import db from '@/lib/db';
 import { route } from '@/lib/route';
 
 export default authMiddleware({
@@ -10,8 +9,6 @@ export default authMiddleware({
     console.log(
       '====================================================================================================='
     );
-    const cards = db.card.findMany();
-    console.log({ cards });
     console.log({ auth, req }, { authDebug: auth.debug() });
     if (auth.userId && auth.isPublicRoute) {
       console.log({
