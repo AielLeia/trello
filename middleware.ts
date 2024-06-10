@@ -6,14 +6,7 @@ import { route } from '@/lib/route';
 export default authMiddleware({
   publicRoutes: ['/', '/api/webhook'],
   afterAuth(auth, req) {
-    console.log(
-      '====================================================================================================='
-    );
-    console.log({ auth, req }, { authDebug: auth.debug() });
     if (auth.userId && auth.isPublicRoute) {
-      console.log({
-        'auth.userId && auth.isPublicRoute': auth.userId && auth.isPublicRoute,
-      });
       let path = '/select-org';
       if (auth.orgId) {
         path = route('/organization/[organizationId]', {
@@ -26,18 +19,10 @@ export default authMiddleware({
     }
 
     if (!auth.userId && !auth.isPublicRoute) {
-      console.log({
-        '!auth.userId && !auth.isPublicRoute':
-          !auth.userId && !auth.isPublicRoute,
-      });
       return redirectToSignIn({ returnBackUrl: req.url });
     }
 
     if (auth.userId && !auth.orgId && req.nextUrl.pathname !== '/select-org') {
-      console.log({
-        "auth.userId && !auth.orgId && req.nextUrl.pathname !== '/select-org'":
-          auth.userId && !auth.orgId && req.nextUrl.pathname !== '/select-org',
-      });
       const orgSelection = new URL('/select-org', req.url);
       return NextResponse.redirect(orgSelection);
     }
